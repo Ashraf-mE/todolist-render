@@ -12,7 +12,6 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 mongoose.connect("mongodb://127.0.0.1:27017/todolistDB");
-const port = process.env.PORT || 3000;
 
 const itemsSchema = { name: String };
 const listsSchema = { name: String, items: [itemsSchema] };
@@ -118,6 +117,11 @@ app.get("/:customName", function (req, res) {
   });
 });
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
 app.listen(port, function () {
-  console.log("Server started on port 3000");
+  console.log("Server started on port ${port}");
 });
