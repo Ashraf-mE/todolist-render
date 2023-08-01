@@ -1,6 +1,7 @@
 //jshint esversion:6
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
@@ -10,8 +11,12 @@ const app = express();
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname + "/public")));
+
+// DBLink =
+//   "mongodb+srv://Ashraf:ashraf123@atlascluster.e8c5eyk.mongodb.net/todolistDB?retryWrites=true&w=majority";
 mongoose.connect(process.env.MONGO_URI);
+
 mongoose.set("strictQuery", false);
 
 const itemsSchema = { name: String };
