@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js");
@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect("mongodb://127.0.0.1:27017/todolistDB");
+mongoose.connect(process.env.mongoDBURL);
 
 const itemsSchema = { name: String };
 const listsSchema = { name: String, items: [itemsSchema] };
@@ -123,5 +123,5 @@ if (port == null || port == "") {
 }
 
 app.listen(port, function () {
-  console.log("Server started on port ${port}");
+  console.log("Server started on port: 3000");
 });
